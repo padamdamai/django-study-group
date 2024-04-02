@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from .models import Room,Topic
 from .forms import RoomForm
@@ -16,10 +17,19 @@ def login_page(request):
             user = User.objects.get(username = username)
         except:
             messages.error(request,"User doesn't exit")
-            
+        user = authenticate(request,username= username,password = password)
 
+        if user is not None: #if there is user in database
+            login(request,user)
+            return redirect('home')
+        else:
+            messages.error(request,"Username or password does't exits")
     context = {}
     return render(request,'base/login_register.html',context)
+
+def logout_page(request):
+    logout(request) #it deletes the token
+    return redirect('home')
 
 def home(request):
     q =request.GET.get('q') if request.GET.get('q') != None else ''
