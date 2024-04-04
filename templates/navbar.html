@@ -8,6 +8,8 @@
 </form>
 
 {% if request.user.is_authenticated %}
+
+<p>Hello {{request.user}}</p>
 <a href="{% url 'logout_page' %}">logout</a>
 {% else %}
 <a href="{% url 'login_page' %}">login</a>

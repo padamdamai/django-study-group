@@ -72,7 +72,12 @@ def home(request):
 
 def room(request,pk):
     room = Room.objects.get(id=pk)
-    context = {'rooms': room}
+    room_message = room.message_set.all() #model ko bhitra model ko sabai messages haru lai get garako
+
+    context = {
+        'rooms': room,
+        'room_messages':room_message
+        }
     return render(request,'base/room.html',context)
 
 @login_required(login_url='login_page') 
