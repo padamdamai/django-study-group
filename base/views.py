@@ -74,7 +74,7 @@ def room(request,pk):
     room = Room.objects.get(id=pk)
     room_message = room.message_set.all().order_by('-created')
     #model ko bhitra model ko sabai messages haru lai get garako
-
+    participants = Room.participants.all()
     if request.method == 'POST':
         message = Message.objects.create(
             user = request.user,
@@ -86,7 +86,8 @@ def room(request,pk):
 
     context = {
         'rooms': room,
-        'room_messages':room_message
+        'room_messages':room_message,
+        'participant':participants
         }
     return render(request,'base/room.html',context)
 
