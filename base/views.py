@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required #login is compulsory for any action
 from django.http import HttpResponse
 from django.contrib import messages
-from .models import Room,Topic
+from .models import Room,Topic,Message
 from .forms import RoomForm
 from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
@@ -72,7 +72,17 @@ def home(request):
 
 def room(request,pk):
     room = Room.objects.get(id=pk)
-    room_message = room.message_set.all() #model ko bhitra model ko sabai messages haru lai get garako
+    room_message = room.message_set.all().order_by('-created')
+    #model ko bhitra model ko sabai messages haru lai get garako
+
+    if request.method == 'POST':
+        message = Message.objects.create(
+            user = request.user,
+            room = room,
+            body = request.POST.get('body')
+        )
+        return redirect('room',pk=room.id)
+        # create method is user to set,create and so on
 
     context = {
         'rooms': room,
