@@ -81,6 +81,7 @@ def room(request,pk):
             room = room,
             body = request.POST.get('body')
         )
+        room.participants.add(request.user)
         return redirect('room',pk=room.id)
         # create method is user to set,create and so on
 
