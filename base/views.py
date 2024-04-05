@@ -55,7 +55,7 @@ def register_user(request):
     return render(request,'base/login_register.html',context)
 
 def home(request):
-    q =request.GET.get('q') if request.GET.get('q') != None else ''
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
     rooms = Room.objects.filter(
         Q(topic__name__icontains = q) |
         Q(name__icontains = q) |
@@ -63,7 +63,7 @@ def home(request):
         )
     rooms_count = rooms.count()
     topics = Topic.objects.all()
-    room_messages = Message.objects.all()
+    room_messages = Message.objects.filter(Q(room__name__icontains = q))
     context = {
         'rooms':rooms,
         'topic':topics,
