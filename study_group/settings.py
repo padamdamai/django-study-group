@@ -119,7 +119,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIR = [
+STATICFILES_DIRS = [
     BASE_DIR / 'static' #added static folder (to know that static folder exitst to django)
 ]
 
