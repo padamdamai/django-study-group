@@ -123,6 +123,10 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static' #added static folder (to know that static folder exitst to django)
 ]
 
+
+# STATIC_ROOT =
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
