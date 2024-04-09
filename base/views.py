@@ -129,7 +129,7 @@ def createRoom(request):
 def updateRoom(request,pk):
     room = Room.objects.get(id=pk)
     form  = RoomForm(instance=room)
-
+    topic = Topic.objects.all()
     if request.user != room.host:
         return HttpResponse('you are not allowed to edit')
 
@@ -138,7 +138,10 @@ def updateRoom(request,pk):
         if form.is_valid():
             form.save() 
             return redirect('home')
-    context = {'form':form}
+    context = {
+        'form':form,
+        'topic':topic
+        }
     return render(request,'base/room_form.html',context)
 
 @login_required(login_url= 'login_page')
