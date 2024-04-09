@@ -22,8 +22,8 @@
           <form class="form" action="" method="POST">
             {% csrf_token %}
             <div class="form__group">
-              <label for="room_topic">Room Name</label>
-              <input type="text" name="topic" list="topic-list" required/>
+              <label for="room_topic">Enter a topic</label>
+              <input type="text" name="topic" list="topic-list" value="{{room.topic.name}}" required/>
               <datalist id="topic-list">
                 <select name="" id="room_topic">
                  {% for topics in topic %}
@@ -60,7 +60,7 @@
 
             <div class="form__action">
               <a class="btn btn--dark" href="index.html">Cancel</a>
-              <button class="btn btn--main" type="submit">Create Room</button>
+              <button class="btn btn--main" type="submit">Submit</button>
             </div>
           </form>
         </div>

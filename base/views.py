@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required #login is compulsory f
 from django.http import HttpResponse
 from django.contrib import messages
 from .models import Room,Topic,Message
-from .forms import RoomForm
+from .forms import RoomForm,UserForm
 from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
 
@@ -141,13 +141,20 @@ def updateRoom(request,pk):
         return HttpResponse('you are not allowed to edit')
 
     if request.method == 'POST':
-        form = RoomForm(request.POST,instance=room)
-        if form.is_valid():
-            form.save() 
-            return redirect('home')
+        topic_name = request.POST.get('topic')
+        topic,created = Topic.objects.get_or_create(name = topic_name)
+        room.name = request.POST.get('name')
+        room.topic = topic
+        room.save()
+        room.description = request.POST.get('description')
+
+
+      
+        return redirect('home')
     context = {
         'form':form,
-        'topic':topic
+        'topic':topic,
+        'room':room
         }
     return render(request,'base/room_form.html',context)
 
@@ -171,3 +178,16 @@ def deleteMessage(request,pk):
         message.delete()
         return redirect('home')
     return render(request,'base/delete.html',{'obj':message})
+
+
+@login_required(login_url = 'login_page')
+def updateUser(request):
+    user = request.user
+    form = UserForm(instance = user)
+
+    if request.method == 'POST':
+        form = UserForm(request.POST,instance=user)
+        if form.is_valid:
+            form.save()
+            redirect('userProfile',pk= user.id)
+    return render(request,'base/update-user.html',{'form':form})
