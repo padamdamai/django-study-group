@@ -112,13 +112,17 @@ def userProfile(request,pk):
 @login_required(login_url='login_page') 
 def createRoom(request):
     form = RoomForm()
+    topic = Topic.objects.all()
     if request.method == 'POST':
        form = RoomForm(request.POST)
        if form.is_valid():
            form.save()
            return redirect('home')
             
-    context = {'form': form}
+    context = {
+        'form': form,
+        'topic':topic
+        }
     return render(request,'base/room_form.html',context)
 
 @login_required(login_url= 'login_page')

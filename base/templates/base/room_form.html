@@ -25,8 +25,14 @@
               <label for="room_topic">Room Name</label>
               <input type="text" name="topic" list="topic-list" required/>
               <datalist id="topic-list">
+                <select name="" id="room_topic">
+                 {% for topics in topic %}
+                  <option value="{{topics.name}}">{{topics.name}}</option>
 
-                </datalist>
+                 {% endfor %}
+
+                </select>
+              </datalist>
             </div>
 
             <div class="form__group">
@@ -38,7 +44,7 @@
               <label for="room_description">Room description</label>
               {{form.description}}
             </div>
-            {% endfor %}
+         
             <!-- <div class="form__group">
               <label for="room_topic">Topic</label>
               <input required type="text" name="topic" id="room_topic" list="topic-list" />
