@@ -70,13 +70,20 @@
 
             <form class="form" action="" method="POST">
               {% csrf_token %}
-              {% for fields in form %}
               <div class="form__group form__group">
-                <label for="room_name">{{fields.label}}</label>
-                {{fields}}
+                <label for="room_name">Username</label>
+                <input id="username" name="username" type="text" placeholder="e.g. dennis_ivy" />
               </div>
-              {% endfor %}
-          
+              <div class="form__group">
+                <label for="password">Password</label>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+                />
+              </div>
+
               <button class="btn btn--main" type="submit">
                 <svg
                   version="1.1"
@@ -99,7 +106,7 @@
             </form>
 
             <div class="auth__action">
-              <p>Already signed in</p>
+              <p>Already signed up </p>
               <a href="{% url 'login_page' %}" class="btn btn--link">Sign Up</a>
             </div>
           </div>
