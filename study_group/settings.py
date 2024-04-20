@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     "corsheaders",
 ]
 
+AUTH_USER_MODEL = 'base.User'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
 
@@ -120,6 +122,9 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static' #added static folder (to know that static folder exitst to django)
 ]
 
+#for uploaded document or media 
+#MEDIA_ROOM ganna tell django where to store uploaded document/images 
+MEDIA_ROOT = BASE_DIR / 'static/images'
 
 # STATIC_ROOT =
 
