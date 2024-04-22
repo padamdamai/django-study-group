@@ -5,9 +5,9 @@ from django.contrib.auth.decorators import login_required #login is compulsory f
 from django.http import HttpResponse
 from django.contrib import messages
 from .models import Room,Topic,Message,User
-from .forms import RoomForm,UserForm
+from .forms import RoomForm,UserForm,MyUserCreationForm
 from django.db.models import Q
-from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.forms import UserCreationForm
 
 
 def login_page(request):
@@ -38,9 +38,9 @@ def logout_page(request):
     return redirect('home')
 
 def register_user(request):
-    form = UserCreationForm()
+    form = MyUserCreationForm()
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = MyUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save() 
             #form.save(commit = False) it will return an object that hasn't yet been saved to the database
@@ -186,7 +186,7 @@ def updateUser(request):
     form = UserForm(instance = user)
 
     if request.method == 'POST':
-        form = UserForm(request.POST,instance=user)
+        form = UserForm(request.POST,request.FILES,instance=user)
         if form.is_valid:
             form.save()
             redirect('userProfile',pk= user.id)

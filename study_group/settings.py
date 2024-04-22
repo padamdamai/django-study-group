@@ -117,7 +117,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+
+#setting url start
 STATIC_URL = 'static/'
+MEDIA_URL = '/images/'
+#end urlsetup
+
+
 STATICFILES_DIRS = [
     BASE_DIR / 'static' #added static folder (to know that static folder exitst to django)
 ]
